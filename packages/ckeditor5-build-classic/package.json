@@ -47,6 +47,7 @@
     "@ckeditor/ckeditor5-paste-from-office": "^36.0.0",
     "@ckeditor/ckeditor5-table": "^36.0.0",
     "@ckeditor/ckeditor5-typing": "^36.0.0"
+    "@telligent/ckeditor5-evolution": "github:Telligent/ckeditor5-evolution"
   },
   "devDependencies": {
     "@ckeditor/ckeditor5-core": "^36.0.0",
@@ -55,12 +56,14 @@
     "@ckeditor/ckeditor5-theme-lark": "^36.0.0",
     "css-loader": "^5.2.7",
     "postcss-loader": "^4.3.0",
+    "postcss-selector-parser": "^6.0.10",
     "raw-loader": "^4.0.1",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^4.2.3",
-    "ts-loader": "^9.3.0",
-    "webpack": "^5.58.1",
-    "webpack-cli": "^4.9.0"
+    "ts-loader": "^9.4.2",
+    "typescript": "^4.9.4",
+    "webpack": "^5.75.0",
+    "webpack-cli": "^4.10.0"
   },
   "engines": {
     "node": ">=14.0.0",
