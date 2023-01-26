@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -10,8 +10,11 @@
 import View from '../../view';
 import ButtonView from '../../button/buttonview';
 
-import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
-import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
+import {
+	KeystrokeHandler,
+	FocusTracker,
+	type Locale
+} from '@ckeditor/ckeditor5-utils';
 
 import dropdownArrowIcon from '../../../theme/icons/dropdown-arrow.svg';
 
@@ -19,7 +22,6 @@ import '../../../theme/components/dropdown/splitbutton.css';
 
 import type ViewCollection from '../../viewcollection';
 import type Button from '../../button/button';
-import type { Locale } from '@ckeditor/ckeditor5-utils';
 import type DropdownButton from './dropdownbutton';
 
 /**

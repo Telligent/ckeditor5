@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,11 +7,17 @@
  * @module enter/shiftentercommand
  */
 
-import Command from '@ckeditor/ckeditor5-core/src/command';
+import { Command } from '@ckeditor/ckeditor5-core';
 import { getCopyOnEnterAttributes } from './utils';
 
-import type Writer from '@ckeditor/ckeditor5-engine/src/model/writer';
-import type { DocumentSelection, Model, Position, Schema, Element } from '@ckeditor/ckeditor5-engine';
+import type {
+	DocumentSelection,
+	Model,
+	Position,
+	Schema,
+	Element,
+	Writer
+} from '@ckeditor/ckeditor5-engine';
 
 /**
  * ShiftEnter command. It is used by the {@link module:enter/shiftenter~ShiftEnter ShiftEnter feature} to handle

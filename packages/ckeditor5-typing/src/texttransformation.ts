@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,12 +7,15 @@
  * @module typing/texttransformation
  */
 
-import Plugin, { type PluginDependencies } from '@ckeditor/ckeditor5-core/src/plugin';
+import {
+	Plugin,
+	type Editor,
+	type PluginDependencies
+} from '@ckeditor/ckeditor5-core';
+
 import TextWatcher, { type TextWatcherMatchedDataEvent } from './textwatcher';
 import { escapeRegExp } from 'lodash-es';
 
-import type Delete from './delete';
-import type { Editor } from '@ckeditor/ckeditor5-core';
 import type { Position } from '@ckeditor/ckeditor5-engine';
 
 // All named transformations.

@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,28 +7,38 @@
  * @module ui/toolbar/balloon/balloontoolbar
  */
 
-import Plugin, { type PluginDependencies } from '@ckeditor/ckeditor5-core/src/plugin';
+import {
+	Plugin,
+	type Editor,
+	type EditorReadyEvent,
+	type PluginDependencies,
+	type ToolbarConfig
+} from '@ckeditor/ckeditor5-core';
+
+import {
+	FocusTracker,
+	Rect,
+	ResizeObserver,
+	env,
+	global,
+	toUnit,
+	type ObservableChangeEvent
+} from '@ckeditor/ckeditor5-utils';
+
+import type {
+	DocumentSelection,
+	DocumentSelectionChangeRangeEvent,
+	Schema
+} from '@ckeditor/ckeditor5-engine';
+
 import ContextualBalloon from '../../panel/balloon/contextualballoon';
 import ToolbarView, { type ToolbarViewGroupedItemsUpdateEvent } from '../toolbarview';
 import BalloonPanelView, { generatePositions } from '../../panel/balloon/balloonpanelview';
-import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
-import Rect from '@ckeditor/ckeditor5-utils/src/dom/rect';
 import normalizeToolbarConfig from '../normalizetoolbarconfig';
-import { debounce, type DebouncedFunc } from 'lodash-es';
-import ResizeObserver from '@ckeditor/ckeditor5-utils/src/dom/resizeobserver';
-import toUnit from '@ckeditor/ckeditor5-utils/src/dom/tounit';
-import { env, global } from '@ckeditor/ckeditor5-utils';
 
-import type { Editor } from '@ckeditor/ckeditor5-core';
-import type { ToolbarConfig } from '@ckeditor/ckeditor5-core/src/editor/editorconfig';
-import type { EditorReadyEvent } from '@ckeditor/ckeditor5-core/src/editor/editor';
-import type { EditorUIReadyEvent, EditorUIUpdateEvent } from '@ckeditor/ckeditor5-core/src/editor/editorui';
-import type { ObservableChangeEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import type {
-	default as DocumentSelection,
-	DocumentSelectionChangeRangeEvent
-} from '@ckeditor/ckeditor5-engine/src/model/documentselection';
-import type Schema from '@ckeditor/ckeditor5-engine/src/model/schema';
+import type { EditorUIReadyEvent, EditorUIUpdateEvent } from '../../editorui/editorui';
+
+import { debounce, type DebouncedFunc } from 'lodash-es';
 
 const toPx = toUnit( 'px' );
 
@@ -184,11 +194,11 @@ export default class BalloonToolbar extends Plugin {
 				const editableElement = editor.ui.view.editable.element!;
 
 				// Set #toolbarView's max-width on the initialization and update it on the editable resize.
-				this._resizeObserver = new ResizeObserver( editableElement, () => {
+				this._resizeObserver = new ResizeObserver( editableElement, entry => {
 					// The max-width equals 90% of the editable's width for the best user experience.
 					// The value keeps the balloon very close to the boundaries of the editable and limits the cases
 					// when the balloon juts out from the editable element it belongs to.
-					this.toolbarView.maxWidth = toPx( new Rect( editableElement ).width * .9 );
+					this.toolbarView.maxWidth = toPx( entry.contentRect.width * .9 );
 				} );
 			} );
 		}

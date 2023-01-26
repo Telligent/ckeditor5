@@ -44,7 +44,7 @@ function SpecialCharactersEmoji( editor ) {
 		{ title: 'wind blowing face', character: '🌬️' },
 		{ title: 'floppy disk', character: '💾' },
 		{ title: 'heart', character: '❤️' }
-	] );
+	], { label: 'Emoticons' } );
 }
 
 ClassicEditor
@@ -64,6 +64,10 @@ After adding the above plugin to the editor configuration, the new category will
 
 <info-box>
 	The title of a special character must be unique across the entire special characters set.
+</info-box>
+
+<info-box>
+	The third argument of the {@link module:special-characters/specialcharacters~SpecialCharacters#addItems `SpecialCharacters#addItems()`} method is optional. You can use it to specify a label displayed as a category name. It is useful when your editor uses a language other than English. Check out the {@link features/ui-language UI language guide} to learn more.
 </info-box>
 
 Below you can see a demo based on the example shown above. Use the special characters icon in the editor toolbar and then select "Emoji" in the select dropdown in order to insert an emoji into the WYSIWYG editor.
@@ -144,6 +148,30 @@ Below, you can see a demo based on the example shown above. After clicking the s
 
 {@snippet features/special-characters-limited-categories}
 
+### Ordering categories
+
+The order of categories in the UI is determined by the order in which they were registered. However, depending on the context in which you use the editor, you might want to change this order, to make it easier to access frequently used characters.
+
+The categories order can be customized using the {@link module:special-characters/specialcharacters~SpecialCharactersConfig#order `order`} array.
+
+```js
+ClassicEditor
+	.create( document.querySelector( '#editor' ), {
+		plugins: [ SpecialCharacters, SpecialCharactersEssentials, ... ],
+		specialCharacters: {
+			order: [
+				'Text',
+				'Latin',
+				'Mathematical',
+				'Currency',
+				'Arrows'
+			]
+		}
+	} )
+	.then( ... )
+	.catch( ... );
+```
+
 ## Installation
 
 To add this feature to your rich-text editor, install the [`@ckeditor/ckeditor5-special-characters`](https://www.npmjs.com/package/@ckeditor/ckeditor5-special-characters) package:
@@ -183,4 +211,4 @@ The {@link module:special-characters/specialcharacters~SpecialCharacters} plugin
 
 ## Contribute
 
-The source code of the feature is available on GitHub in https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-special-characters.
+The source code of the feature is available on GitHub in [https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-special-characters](https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-special-characters).

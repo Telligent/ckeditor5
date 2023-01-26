@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -8,13 +8,14 @@
  */
 
 import View from '../view';
-import uid from '@ckeditor/ckeditor5-utils/src/uid';
 import LabelView from '../label/labelview';
-import '../../theme/components/labeledfield/labeledfieldview.css';
 
 import type { FocusableView } from '../focuscycler';
 import type ViewCollection from '../viewcollection';
-import type { Locale } from '@ckeditor/ckeditor5-utils';
+
+import { uid, type Locale } from '@ckeditor/ckeditor5-utils';
+
+import '../../theme/components/labeledfield/labeledfieldview.css';
 
 /**
  * The labeled field view class. It can be used to enhance any view with the following features:
@@ -54,8 +55,8 @@ import type { Locale } from '@ckeditor/ckeditor5-utils';
  *
  * @extends module:ui/view~View
  */
-export default class LabeledFieldView extends View {
-	public readonly fieldView: FocusableView;
+export default class LabeledFieldView<TFieldView extends FocusableView = FocusableView> extends View {
+	public readonly fieldView: TFieldView;
 	public readonly labelView: LabelView;
 	public readonly statusView: View;
 	public readonly fieldWrapperChildren: ViewCollection;
@@ -84,7 +85,7 @@ export default class LabeledFieldView extends View {
 	 */
 	constructor(
 		locale: Locale | undefined,
-		viewCreator: ( labeledFieldView: LabeledFieldView, viewUid: string, statusUid: string ) => FocusableView
+		viewCreator: ( labeledFieldView: LabeledFieldView, viewUid: string, statusUid: string ) => TFieldView
 	) {
 		super( locale );
 

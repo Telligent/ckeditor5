@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -11,16 +11,20 @@ import ViewText from './text';
 import ViewPosition from './position';
 import { INLINE_FILLER, INLINE_FILLER_LENGTH, startsWithFiller, isInlineFiller } from './filler';
 
-import { default as diff, type DiffResult } from '@ckeditor/ckeditor5-utils/src/diff';
-import insertAt from '@ckeditor/ckeditor5-utils/src/dom/insertat';
-import remove from '@ckeditor/ckeditor5-utils/src/dom/remove';
-import { Observable, type ObservableChangeEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
-import isText from '@ckeditor/ckeditor5-utils/src/dom/istext';
-import isComment from '@ckeditor/ckeditor5-utils/src/dom/iscomment';
-import isNode from '@ckeditor/ckeditor5-utils/src/dom/isnode';
-import fastDiff from '@ckeditor/ckeditor5-utils/src/fastdiff';
-import env from '@ckeditor/ckeditor5-utils/src/env';
+import {
+	CKEditorError,
+	ObservableMixin,
+	diff,
+	env,
+	fastDiff,
+	insertAt,
+	isComment,
+	isNode,
+	isText,
+	remove,
+	type DiffResult,
+	type ObservableChangeEvent
+} from '@ckeditor/ckeditor5-utils';
 
 import type { ChangeType } from './document';
 import type DocumentSelection from './documentselection';
@@ -49,7 +53,7 @@ type DomSelection = globalThis.Selection;
  * Renderer uses {@link module:engine/view/domconverter~DomConverter} to transform view nodes and positions
  * to and from the DOM.
  */
-export default class Renderer extends Observable {
+export default class Renderer extends ObservableMixin() {
 	public readonly domDocuments: Set<DomDocument>;
 	public readonly domConverter: DomConverter;
 	public readonly markedAttributes: Set<ViewElement>;

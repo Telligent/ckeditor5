@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -10,17 +10,16 @@ import type { default as UpcastDispatcher, UpcastElementEvent, UpcastConversionA
 import type ModelElement from '../model/element';
 import type ModelRange from '../model/range';
 import type ModelPosition from '../model/position';
-import type EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import type { ViewDocumentFragment, ViewElement, ViewText } from '../index';
 import type Mapper from './mapper';
 import type Model from '../model/model';
 import type ViewSelection from '../view/selection';
 import type ViewDocumentSelection from '../view/documentselection';
+import { isParagraphable, wrapInParagraph } from '../model/utils/autoparagraphing';
+
+import { priorities, type EventInfo, type PriorityString } from '@ckeditor/ckeditor5-utils';
 
 import { cloneDeep } from 'lodash-es';
-
-import priorities, { type PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
-import { isParagraphable, wrapInParagraph } from '../model/utils/autoparagraphing';
 
 /**
  * Contains the {@link module:engine/view/view view} to {@link module:engine/model/model model} converters for
@@ -313,7 +312,7 @@ export default class UpcastHelpers extends ConversionHelpers<UpcastDispatcher> {
 	public attributeToAttribute( config: {
 		view: string | {
 			key: string;
-			value?: string | RegExp | ( ( value: unknown ) => boolean );
+			value?: string | RegExp | Array<string> | Record<string, string> | ( ( value: unknown ) => boolean );
 			name?: string;
 		} | {
 			name?: string;
@@ -524,7 +523,16 @@ export function convertText() {
 				return;
 			}
 
+			// Wrap `$text` in paragraph and include any marker that is directly before `$text`. See #13053.
+			const nodeBefore = position.nodeBefore;
+
 			position = wrapInParagraph( position, writer );
+
+			if ( nodeBefore && nodeBefore.is( 'element', '$marker' ) ) {
+				// Move `$marker` to the paragraph.
+				writer.move( writer.createRangeOn( nodeBefore ), position );
+				position = writer.createPositionAfter( nodeBefore );
+			}
 		}
 
 		consumable.consume( data.viewItem );
@@ -657,7 +665,7 @@ function upcastElementToAttribute( config: {
 function upcastAttributeToAttribute( config: {
 	view: string | {
 		key?: string;
-		value?: string | RegExp | ( ( value: unknown ) => boolean );
+		value?: string | RegExp | Array<string> | Record<string, string> | ( ( value: unknown ) => boolean );
 		name?: string;
 		styles?: PropertyPatterns;
 		classes?: ClassPatterns;

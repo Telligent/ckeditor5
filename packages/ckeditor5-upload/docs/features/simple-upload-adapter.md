@@ -29,14 +29,14 @@ import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleu
 
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ SimpleUploadAdapter, ... ],
-		toolbar: [ ... ],
+		plugins: [ SimpleUploadAdapter, /* ... */ ],
+		toolbar: [ /* ... */ ],
 		simpleUpload: {
 			// Feature configuration.
 		}
 	} )
-	.then( ... )
-	.catch( ... );
+	.then( /* ... */ )
+	.catch( /* ... */ );
 ```
 
 <info-box info>
@@ -52,8 +52,8 @@ import SimpleUploadAdapter from '@ckeditor/ckeditor5-upload/src/adapters/simpleu
 
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ SimpleUploadAdapter, ... ],
-		toolbar: [ ... ],
+		plugins: [ SimpleUploadAdapter, /* ... */ ],
+		toolbar: [ /* ... */ ],
 		simpleUpload: {
 			// The URL that the images are uploaded to.
 			uploadUrl: 'http://example.com',
@@ -68,8 +68,8 @@ ClassicEditor
 			}
 		}
 	} )
-	.then( ... )
-	.catch( ... );
+	.then( /* ... */ )
+	.catch( /* ... */ );
 ```
 
 ### Configuring allowed file types
@@ -133,7 +133,7 @@ If the upload is successful, the server should return:
 The URL(s) in the server response are used:
 
 * To display the image during the editing (as seen by the user in the editor).
-* In the editor content {@link installation/advanced/saving-data saved to the database}.
+* In the editor content {@link installation/getting-started/getting-and-setting-data saved to the database}.
 
 ### Error handling
 
@@ -163,4 +163,4 @@ See the {@link features/images-overview Image feature guide} to find out more ab
 
 ## Contribute
 
-The source code of the feature is available on GitHub in https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-upload.
+The source code of the feature is available on GitHub in [https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-upload](https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-upload).

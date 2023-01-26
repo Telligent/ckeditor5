@@ -1,9 +1,7 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
-
-/* eslint-disable new-cap */
 
 /**
  * @module engine/view/documentselection
@@ -12,7 +10,7 @@
 import TypeCheckable from './typecheckable';
 import Selection, { type ViewSelectionChangeEvent } from './selection';
 
-import EmitterMixin from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import { EmitterMixin } from '@ckeditor/ckeditor5-utils';
 
 import type EditableElement from './editableelement';
 import type Element from './element';

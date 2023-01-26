@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -23,12 +23,15 @@ import {
 	getDataWithoutFiller, isInlineFiller, startsWithFiller
 } from './filler';
 
-import global from '@ckeditor/ckeditor5-utils/src/dom/global';
-import { logWarning } from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
-import indexOf from '@ckeditor/ckeditor5-utils/src/dom/indexof';
-import getAncestors from '@ckeditor/ckeditor5-utils/src/dom/getancestors';
-import isText from '@ckeditor/ckeditor5-utils/src/dom/istext';
-import isComment from '@ckeditor/ckeditor5-utils/src/dom/iscomment';
+import {
+	global,
+	logWarning,
+	indexOf,
+	getAncestors,
+	isText,
+	isComment,
+	first
+} from '@ckeditor/ckeditor5-utils';
 
 import type ViewNode from './node';
 import type Document from './document';
@@ -556,7 +559,8 @@ export default class DomConverter {
 			}
 
 			const transparentRendering = childView.is( 'element' ) &&
-				( childView.getCustomProperty( 'dataPipeline:transparentRendering' ) as boolean | undefined );
+				!!childView.getCustomProperty( 'dataPipeline:transparentRendering' ) &&
+				!first( childView.getAttributes() );
 
 			if ( transparentRendering && this.renderingMode == 'data' ) {
 				yield* this.viewChildrenToDom( childView, options );

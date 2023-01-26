@@ -35,14 +35,14 @@ To change the title placeholder, use the {@link module:heading/title~TitleConfig
 ```js
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
-        plugins: [ Title, ... ],
+        plugins: [ Title, /* ... */ ],
         title: {
             placeholder: 'My custom placeholder for the title'
         },
         placeholder: 'My custom placeholder for the body'
     } )
-    .then( ... )
-    .catch( ... );
+    .then( /* ... */ )
+    .catch( /* ... */ );
 ```
 
 ## Installation
@@ -60,10 +60,10 @@ import Title from '@ckeditor/ckeditor5-heading/src/title';
 
 ClassicEditor
     .create( document.querySelector( '#editor' ), {
-        plugins: [ Title, ... ]
+        plugins: [ Title, /* ... */ ]
     } )
-    .then( ... )
-    .catch( ... );
+    .then( /* ... */ )
+    .catch( /* ... */ );
 ```
 
 <info-box info>
@@ -96,4 +96,4 @@ In the CKEditor 5 data model the document title is represented as follows:
 
 ## Contribute
 
-The source code of the feature is available on GitHub in https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-heading.
+The source code of the feature is available on GitHub in [https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-heading](https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-heading).

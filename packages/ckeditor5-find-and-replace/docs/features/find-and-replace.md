@@ -41,11 +41,11 @@ import FindAndReplace from '@ckeditor/ckeditor5-find-and-replace/src/findandrepl
 
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ FindAndReplace, ... ],
-		toolbar: [ 'findAndReplace', ... ],
+		plugins: [ FindAndReplace, /* ... */ ],
+		toolbar: [ 'findAndReplace', /* ... */ ],
 	} )
-	.then( ... )
-	.catch( ... );
+	.then( /* ... */ )
+	.catch( /* ... */ );
 ```
 
 <info-box info>
@@ -83,4 +83,4 @@ editor.execute( 'replaceAll', 'diesel', 'steam' );
 
 ## Contribute
 
-The source code of the feature is available on GitHub in https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-find-and-replace.
+The source code of the feature is available on GitHub in [https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-find-and-replace](https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-find-and-replace).

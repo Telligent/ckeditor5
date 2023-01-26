@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -10,9 +10,7 @@
 import Node from './node';
 import Text from './text';
 import TextProxy from './textproxy';
-import toMap from '@ckeditor/ckeditor5-utils/src/tomap';
-import toArray from '@ckeditor/ckeditor5-utils/src/toarray';
-import isIterable from '@ckeditor/ckeditor5-utils/src/isiterable';
+import { isIterable, toArray, toMap } from '@ckeditor/ckeditor5-utils';
 import { default as Matcher, type MatcherPattern } from './matcher';
 import { default as StylesMap, type StyleValue } from './stylesmap';
 
@@ -611,7 +609,7 @@ export default class Element extends Node {
 	 * @fires module:engine/view/node~Node#change
 	 * @returns {Number} Number of appended nodes.
 	 */
-	public _appendChild( items: Item | Iterable<Item> ): number {
+	public _appendChild( items: Item | string | Iterable<Item | string> ): number {
 		return this._insertChild( this.childCount, items );
 	}
 
@@ -627,7 +625,7 @@ export default class Element extends Node {
 	 * @fires module:engine/view/node~Node#change
 	 * @returns {Number} Number of inserted nodes.
 	 */
-	public _insertChild( index: number, items: Item | Iterable<Item> ): number {
+	public _insertChild( index: number, items: Item | string | Iterable<Item | string> ): number {
 		this._fireChange( 'children', this );
 		let count = 0;
 
@@ -679,17 +677,17 @@ export default class Element extends Node {
 	 * @param {String} value Attribute value.
 	 * @fires module:engine/view/node~Node#change
 	 */
-	public _setAttribute( key: string, value: string ): void {
-		value = String( value );
+	public _setAttribute( key: string, value: unknown ): void {
+		const stringValue = String( value );
 
 		this._fireChange( 'attributes', this );
 
 		if ( key == 'class' ) {
-			parseClasses( this._classes, value );
+			parseClasses( this._classes, stringValue );
 		} else if ( key == 'style' ) {
-			this._styles.setTo( value );
+			this._styles.setTo( stringValue );
 		} else {
-			this._attrs.set( key, value );
+			this._attrs.set( key, stringValue );
 		}
 	}
 
@@ -915,7 +913,7 @@ Element.prototype.is = function( type: string, name?: string ): boolean {
 	}
 };
 
-export type ElementAttributes = Record<string, string> | Iterable<[ string, string ]> | null;
+export type ElementAttributes = Record<string, unknown> | Iterable<[ string, unknown ]> | null;
 
 // Parses attributes provided to the element constructor before they are applied to an element. If attributes are passed
 // as an object (instead of `Iterable`), the object is transformed to the map. Attributes with `null` value are removed.
@@ -934,7 +932,7 @@ function parseAttributes( attrs?: ElementAttributes ) {
 		}
 	}
 
-	return attrsMap;
+	return attrsMap as Map<string, string>;
 }
 
 // Parses class attribute and puts all classes into classes set.

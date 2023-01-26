@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,16 +7,19 @@
  * @module ui/panel/sticky/stickypanelview
  */
 
-import global from '@ckeditor/ckeditor5-utils/src/dom/global';
 import View from '../../view';
 import Template from '../../template';
-import toUnit from '@ckeditor/ckeditor5-utils/src/dom/tounit';
 
-import '../../../theme/components/panel/stickypanel.css';
+import {
+	global,
+	toUnit,
+	type Locale,
+	type ObservableChangeEvent
+} from '@ckeditor/ckeditor5-utils';
 
 import type ViewCollection from '../../viewcollection';
-import type { Locale } from '@ckeditor/ckeditor5-utils';
-import type { ObservableChangeEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+
+import '../../../theme/components/panel/stickypanel.css';
 
 const toPx = toUnit( 'px' );
 

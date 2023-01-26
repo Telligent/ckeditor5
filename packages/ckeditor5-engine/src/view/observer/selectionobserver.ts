@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -11,13 +11,14 @@
 
 import Observer from './observer';
 import MutationObserver from './mutationobserver';
-import env from '@ckeditor/ckeditor5-utils/src/env';
+import { env } from '@ckeditor/ckeditor5-utils';
 import { debounce, type DebouncedFunc } from 'lodash-es';
 
 import type View from '../view';
 import type DocumentSelection from '../documentselection';
 import type DomConverter from '../domconverter';
 import type Selection from '../selection';
+import FocusObserver from './focusobserver';
 
 type DomSelection = globalThis.Selection;
 
@@ -35,6 +36,7 @@ type DomSelection = globalThis.Selection;
  */
 export default class SelectionObserver extends Observer {
 	public readonly mutationObserver: MutationObserver;
+	public readonly focusObserver: FocusObserver;
 	public readonly selection: DocumentSelection;
 	public readonly domConverter: DomConverter;
 
@@ -57,6 +59,16 @@ export default class SelectionObserver extends Observer {
 		 * module:engine/view/observer/selectionobserver~SelectionObserver#mutationObserver
 		 */
 		this.mutationObserver = view.getObserver( MutationObserver )!;
+
+		/**
+		 * Instance of the focus observer. Selection observer calls
+		 * {@link module:engine/view/observer/focusobserver~FocusObserver#flush} to mark the latest focus change as complete.
+		 *
+		 * @readonly
+		 * @member {module:engine/view/observer/focusobserver~FocusObserver}
+		 * module:engine/view/observer/focusobserver~FocusObserver#focusObserver
+		 */
+		this.focusObserver = view.getObserver( FocusObserver )!;
 
 		/**
 		 * Reference to the view {@link module:engine/view/documentselection~DocumentSelection} object used to compare
@@ -221,6 +233,13 @@ export default class SelectionObserver extends Observer {
 		this._documentIsSelectingInactivityTimeoutDebounced.cancel();
 	}
 
+	// @if CK_DEBUG //	_reportInfiniteLoop() {
+	// @if CK_DEBUG //		throw new Error(
+	// @if CK_DEBUG //			'Selection change observer detected an infinite rendering loop.\n\n' +
+	// @if CK_DEBUG //	 		'⚠️⚠️ Report this error on https://github.com/ckeditor/ckeditor5/issues/11658.'
+	// @if CK_DEBUG //		);
+	// @if CK_DEBUG //	}
+
 	/**
 	 * Selection change listener. {@link module:engine/view/observer/mutationobserver~MutationObserver#flush Flush} mutations, check if
 	 * a selection changes and fires {@link module:engine/view/document~Document#event:selectionChange} event on every change
@@ -271,10 +290,13 @@ export default class SelectionObserver extends Observer {
 			// by the browser and browser fixes it automatically what causes `selectionchange` event on
 			// which a loopback through a model tries to re-render the wrong selection and again.
 			//
-			// @if CK_DEBUG // console.warn( 'Selection change observer detected an infinite rendering loop.' );
+			// @if CK_DEBUG // this._reportInfiniteLoop();
 
 			return;
 		}
+
+		// Mark the latest focus change as complete (we got new selection after the focus so the selection is in the focused element).
+		this.focusObserver.flush();
 
 		if ( this.selection.isSimilar( newViewSelection ) ) {
 			// If selection was equal and we are at this point of algorithm, it means that it was incorrect.

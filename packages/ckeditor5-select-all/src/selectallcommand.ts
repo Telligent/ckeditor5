@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,8 +7,7 @@
  * @module select-all/selectallcommand
  */
 
-import Command from '@ckeditor/ckeditor5-core/src/command';
-import type { Editor } from '@ckeditor/ckeditor5-core';
+import { Command, type Editor } from '@ckeditor/ckeditor5-core';
 import type { Element, Schema } from '@ckeditor/ckeditor5-engine';
 
 /**

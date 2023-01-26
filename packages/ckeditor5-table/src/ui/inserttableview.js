@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -158,7 +158,8 @@ export default class InsertTableView extends View {
 			keystrokeHandler: this.keystrokes,
 			focusTracker: this.focusTracker,
 			gridItems: this.items,
-			numberOfColumns: 10
+			numberOfColumns: 10,
+			uiLanguageDirection: this.locale && this.locale.uiLanguageDirection
 		} );
 
 		for ( const item of this.items ) {

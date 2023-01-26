@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,11 +7,15 @@
  * @module core/context
  */
 
-import Config from '@ckeditor/ckeditor5-utils/src/config';
-import Collection from '@ckeditor/ckeditor5-utils/src/collection';
+import {
+	Config,
+	Collection,
+	CKEditorError,
+	Locale,
+	type LocaleTranslate
+} from '@ckeditor/ckeditor5-utils';
+
 import PluginCollection from './plugincollection';
-import Locale, { type LocaleTranslate } from '@ckeditor/ckeditor5-utils/src/locale';
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
 import type Editor from './editor/editor';
 import type { LoadedPlugins, PluginConstructor } from './plugin';
 import type { EditorConfig } from './editor/editorconfig';

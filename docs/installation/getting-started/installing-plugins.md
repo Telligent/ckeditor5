@@ -232,6 +232,7 @@ import Autoformat from '@ckeditor/ckeditor5-autoformat/src/autoformat';
 import Bold from '@ckeditor/ckeditor5-basic-styles/src/bold';
 import Italic from '@ckeditor/ckeditor5-basic-styles/src/italic';
 import BlockQuote from '@ckeditor/ckeditor5-block-quote/src/blockquote';
+// Rest of the imports.
 // ...
 
 export default class ClassicEditor extends ClassicEditorBase {}
@@ -243,6 +244,7 @@ ClassicEditor.builtinPlugins = [
 	Bold,
 	Italic,
 	BlockQuote,
+	// Rest of plugins to include in the build.
 	// ...
 ];
 
@@ -251,9 +253,11 @@ ClassicEditor.defaultConfig = {
 		items: [
 			'heading',
 			'bold',
+			// Remaining toolbar items.
 			// ...
 		]
 	},
+	// Rest of classic editor configuration. 
 	// ...
 };
 ```
@@ -293,5 +297,5 @@ So, in short, both methods use very similar mechanisms. However, adding a plugin
 <info-box hint>
 **What's next?**
 
-That was fun, right? Don't hesitate and {@link features/index explore available CKEditor 5 features}, they are waiting to be installed! {@link installation/getting-started/basic-api In the next article}, you will learn more about the editor API and how to use it.
+That was fun, right? Don't hesitate and {@link features/index explore available CKEditor 5 features}, they are waiting to be installed! {@link installation/getting-started/editor-lifecycle In the next article}, you will learn more about the editor lifecycle methods and how to use them.
 </info-box>

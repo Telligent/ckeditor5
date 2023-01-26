@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,13 +7,16 @@
  * @module typing/textwatcher
  */
 
-import { Observable, type ObservableChangeEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { ObservableMixin, type ObservableChangeEvent } from '@ckeditor/ckeditor5-utils';
 import getLastTextLine from './utils/getlasttextline';
 
-import type Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
-import type { Model, Range } from '@ckeditor/ckeditor5-engine';
-import type { DocumentSelectionChangeEvent } from '@ckeditor/ckeditor5-engine/src/model/documentselection';
-import type { DocumentChangeEvent } from '@ckeditor/ckeditor5-engine/src/model/document';
+import type {
+	Batch,
+	Model,
+	Range,
+	DocumentChangeEvent,
+	DocumentSelectionChangeEvent
+} from '@ckeditor/ckeditor5-engine';
 
 /**
  * The text watcher feature.
@@ -25,7 +28,7 @@ import type { DocumentChangeEvent } from '@ckeditor/ckeditor5-engine/src/model/d
  * @private
  * @mixes module:utils/observablemixin~ObservableMixin
  */
-export default class TextWatcher extends Observable {
+export default class TextWatcher extends ObservableMixin() {
 	public readonly model: Model;
 	public testCallback: ( text: string ) => unknown;
 
@@ -186,7 +189,7 @@ export default class TextWatcher extends Observable {
 	}
 }
 
-export type TextWatcherMatchedEvent<TCallbackResult extends Record<string, unknown>> = {
+export type TextWatcherMatchedEvent<TCallbackResult extends Record<string, unknown> = Record<string, unknown>> = {
 	name: 'matched' | 'matched:data' | 'matched:selection';
 	args: [ {
 		text: string;
