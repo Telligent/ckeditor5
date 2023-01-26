@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,17 +7,21 @@
  * @module engine/conversion/conversion
  */
 
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
+import {
+	CKEditorError,
+	toArray,
+	type ArrayOrItem,
+	type PriorityString
+} from '@ckeditor/ckeditor5-utils';
+
 import UpcastHelpers from './upcasthelpers';
 import DowncastHelpers, {
 	type AttributeCreatorFunction,
 	type AttributeDescriptor
 } from './downcasthelpers';
-import toArray, { type ArrayOrItem } from '@ckeditor/ckeditor5-utils/src/toarray';
 
 import type DowncastDispatcher from './downcastdispatcher';
 import type UpcastDispatcher from './upcastdispatcher';
-import type { PriorityString } from '@ckeditor/ckeditor5-utils/src/priorities';
 import type ElementDefinition from '../view/elementdefinition';
 import type { MatcherPattern } from '../view/matcher';
 

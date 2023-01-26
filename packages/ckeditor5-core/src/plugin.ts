@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -9,8 +9,8 @@
  * @module core/plugin
  */
 
-import { Observable, type ObservableSetEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import type EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
+import { ObservableMixin, type ObservableSetEvent, type EventInfo } from '@ckeditor/ckeditor5-utils';
+
 import type Editor from './editor/editor';
 
 /**
@@ -19,7 +19,7 @@ import type Editor from './editor/editor';
  * @implements module:core/plugin~PluginInterface
  * @mixes module:utils/observablemixin~ObservableMixin
  */
-export default class Plugin extends Observable implements PluginInterface {
+export default class Plugin extends ObservableMixin() implements PluginInterface {
 	public readonly editor: Editor;
 
 	public declare isEnabled: boolean;

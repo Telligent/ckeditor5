@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,9 +7,14 @@
  * @module ui/viewcollection
  */
 
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
-import Collection, { type CollectionAddEvent, type CollectionRemoveEvent } from '@ckeditor/ckeditor5-utils/src/collection';
-import type { EmitterMixinDelegateChain } from '@ckeditor/ckeditor5-utils/src/emittermixin';
+import {
+	CKEditorError,
+	Collection,
+	type CollectionAddEvent,
+	type CollectionRemoveEvent,
+	type EmitterMixinDelegateChain
+} from '@ckeditor/ckeditor5-utils';
+
 import type View from './view';
 
 /**
@@ -49,7 +54,7 @@ import type View from './view';
  * @extends module:utils/collection~Collection
  * @mixes module:utils/observablemixin~ObservableMixin
  */
-export default class ViewCollection extends Collection<View, 'viewUid'> {
+export default class ViewCollection extends Collection<View> {
 	public id?: string;
 
 	private _parentElement: DocumentFragment | HTMLElement | null;

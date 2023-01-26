@@ -256,7 +256,7 @@ The following `@Input` properties are supported by the CKEditor 5 rich text edit
 
 ### `editor` (required)
 
-The {@link installation/getting-started/basic-api `Editor`} which provides the static {@link module:core/editor/editor~Editor.create `create()`} method to create an instance of the editor:
+The {@link installation/getting-started/editor-lifecycle `Editor`} which provides the static {@link module:core/editor/editor~Editor.create `create()`} method to create an instance of the editor:
 
 ```html
 <ckeditor [editor]="Editor"></ckeditor>
@@ -577,9 +577,9 @@ TypeError: Cannot read property 'data-ck-expando' of undefined
 
 Workaround: in `polyfills.js` import zone.js using `import zone.js/dist/zone.js` instead of `import 'zone.js'`.
 More details:
-- https://github.com/ckeditor/ckeditor5-angular/issues/109
-- https://github.com/angular/angular/tree/master/packages/zone.js#breaking-changes-since-zonejs-v0111
+- [https://github.com/ckeditor/ckeditor5-angular/issues/109](https://github.com/ckeditor/ckeditor5-angular/issues/109)
+- [https://github.com/angular/angular/tree/master/packages/zone.js#breaking-changes-since-zonejs-v0111](https://github.com/angular/angular/tree/master/packages/zone.js#breaking-changes-since-zonejs-v0111)
 
 ## Contributing and reporting issues
 
-The source code of the CKEditor 5 rich text editor component for Angular is available on GitHub in https://github.com/ckeditor/ckeditor5-angular.
+The source code of the CKEditor 5 rich text editor component for Angular is available on GitHub in [https://github.com/ckeditor/ckeditor5-angular](https://github.com/ckeditor/ckeditor5-angular).

@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,13 +7,14 @@
  * @module core/command
  */
 
-import type EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import {
-	Observable,
+	ObservableMixin,
+	type EventInfo,
 	type ObservableChangeEvent,
 	type DecoratedMethodEvent,
 	type ObservableSetEvent
-} from '@ckeditor/ckeditor5-utils/src/observablemixin';
+} from '@ckeditor/ckeditor5-utils';
+
 import type Editor from './editor/editor';
 
 /**
@@ -31,7 +32,7 @@ import type Editor from './editor/editor';
  *
  * @mixes module:utils/observablemixin~ObservableMixin
  */
-export default class Command extends Observable {
+export default class Command extends ObservableMixin() {
 	public readonly editor: Editor;
 
 	declare public value: unknown;

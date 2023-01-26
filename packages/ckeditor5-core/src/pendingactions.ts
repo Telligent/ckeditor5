@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -8,9 +8,15 @@
  */
 
 import ContextPlugin from './contextplugin';
-import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import Collection, { type CollectionAddEvent, type CollectionRemoveEvent } from '@ckeditor/ckeditor5-utils/src/collection';
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
+
+import {
+	CKEditorError,
+	Collection,
+	ObservableMixin,
+	type CollectionAddEvent,
+	type CollectionRemoveEvent,
+	type Observable
+} from '@ckeditor/ckeditor5-utils';
 
 /**
  * The list of pending editor actions.
@@ -48,14 +54,14 @@ import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
  *
  * This plugin is used by features like {@link module:upload/filerepository~FileRepository} to register their ongoing actions
  * and by features like {@link module:autosave/autosave~Autosave} to detect whether there are any ongoing actions.
- * Read more about saving the data in the {@glink installation/advanced/saving-data Saving and getting data} guide.
+ * Read more about saving the data in the {@glink installation/getting-started/getting-and-setting-data Saving and getting data} guide.
  *
  * @extends module:core/contextplugin~ContextPlugin
  */
 export default class PendingActions extends ContextPlugin implements Iterable<PendingAction> {
 	declare public hasAny: boolean;
 
-	private _actions!: Collection<PendingAction & { _id?: string }, '_id'>;
+	private _actions!: Collection<PendingAction>;
 
 	/**
 	 * @inheritDoc
@@ -106,7 +112,7 @@ export default class PendingActions extends ContextPlugin implements Iterable<Pe
 			throw new CKEditorError( 'pendingactions-add-invalid-message', this );
 		}
 
-		const action = new Observable() as PendingAction;
+		const action = new ( ObservableMixin() )() as PendingAction;
 
 		action.set( 'message', message );
 		this._actions.add( action );

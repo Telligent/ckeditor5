@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -36,8 +36,6 @@ import {
 	wrap
 } from '../conversion/downcasthelpers';
 
-import { isPlainObject } from 'lodash-es';
-import toMap from '@ckeditor/ckeditor5-utils/src/tomap';
 import { StylesProcessor } from '../view/stylesmap';
 
 import DowncastDispatcher, {
@@ -62,11 +60,14 @@ import type DowncastWriter from '../view/downcastwriter';
 import type { default as Schema, SchemaContextDefinition } from '../model/schema';
 import type { ViewDocumentFragment, ViewElement } from '../index';
 import type ViewNode from '../view/node';
-import type EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
 import type ViewText from '../view/text';
 import type Writer from '../model/writer';
 import type ModelNode from '../model/node';
 import type ModelElement from '../model/element';
+
+import { toMap, type EventInfo } from '@ckeditor/ckeditor5-utils';
+
+import { isPlainObject } from 'lodash-es';
 
 /**
  * Writes the content of a model {@link module:engine/model/document~Document document} to an HTML-like string.

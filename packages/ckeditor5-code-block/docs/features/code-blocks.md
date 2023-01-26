@@ -56,8 +56,8 @@ ClassicEditor
 			]
 		}
 	} )
-	.then( ... )
-	.catch( ... );
+	.then( /* ... */ )
+	.catch( /* ... */ );
 ```
 
 {@snippet features/code-block-custom-languages}
@@ -84,8 +84,8 @@ ClassicEditor
 			]
 		}
 	} )
-	.then( ... )
-	.catch( ... );
+	.then( /* ... */ )
+	.catch( /* ... */ );
 ```
 
 <info-box>
@@ -150,11 +150,11 @@ import CodeBlock from '@ckeditor/ckeditor5-code-block/src/codeblock';
 
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ CodeBlock, ... ],
-		toolbar: [ 'codeBlock', ... ]
+		plugins: [ CodeBlock, /* ... */ ],
+		toolbar: [ 'codeBlock', /* ... */ ]
 	} )
-	.then( ... )
-	.catch( ... );
+	.then( /* ... */ )
+	.catch( /* ... */ );
 ```
 
 <info-box info>
@@ -217,4 +217,4 @@ The {@link module:code-block/codeblock~CodeBlock} plugin registers:
 
 ## Contribute
 
-The source code of the feature is available on GitHub in https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-code-block.
+The source code of the feature is available on GitHub in [https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-code-block](https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-code-block).

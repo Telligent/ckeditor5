@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -12,7 +12,7 @@ import type DomEventData from './domeventdata';
 import type View from '../view';
 import type ViewRange from '../range';
 import DataTransfer from '../datatransfer';
-import env from '@ckeditor/ckeditor5-utils/src/env';
+import { env } from '@ckeditor/ckeditor5-utils';
 
 /**
  * Observer for events connected with data input.

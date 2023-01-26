@@ -285,7 +285,7 @@ The result should look like this:
 
 {@img assets/img/framework-architecture-toolbar.png 636 A simple toolbar created using existing components.}
 
-The toolbar renders correctly but it does not do much. To execute an action when the button is clicked, a listener must be defined. To shorten the code and instead of two listeners define just one, the buttons can {@link module:utils/emittermixin~EmitterMixin#delegate delegate} the {@link module:ui/button/buttonview~ButtonView#execute `execute`} event to their parent:
+The toolbar renders correctly but it does not do much. To execute an action when the button is clicked, a listener must be defined. To shorten the code and instead of two listeners define just one, the buttons can {@link module:utils/emittermixin~EmitterMixin#delegate delegate} the {@link module:ui/button/buttonview~ButtonView#event:execute `execute`} event to their parent:
 
 ```js
 buttonFoo.delegate( 'execute' ).to( toolbar );
@@ -321,7 +321,7 @@ const dropdownView = createDropdown( locale, SplitButtonView );
 
 This kind of (default) dropdown comes with a set of behaviors:
 * It closes the panel when it loses the focus, e.g. the user moved the focus elsewhere.
-* It closes the panel upon the {@link module:ui/dropdown/dropdownview~DropdownView#execute `execute`} event.
+* It closes the panel upon the {@link module:ui/dropdown/dropdownview~DropdownView#event:execute `execute`} event.
 * It focuses the view hosted in the panel, e.g. when navigating the toolbar using the keyboard.
 
 #### Setting label, icon, and tooltip
@@ -329,7 +329,7 @@ This kind of (default) dropdown comes with a set of behaviors:
 To customize the button of the dropdown, use the {@link module:ui/dropdown/dropdownview~DropdownView#buttonView `buttonView`} property. It gives a direct access to the {@link module:ui/button/buttonview~ButtonView `ButtonView` instance} used by your dropdown.
 
 <info-box>
-	If your dropdown has been created using the {@link module:ui/dropdown/button/splitbuttonview~SplitButtonView}, use the {@link module:ui/dropdown/button/splitbuttonview~SplitButtonView#actionView} to access its main region, e.g. `dropdownView.buttonView.actionView.set( ... )`.
+	If your dropdown has been created using the {@link module:ui/dropdown/button/splitbuttonview~SplitButtonView}, use the {@link module:ui/dropdown/button/splitbuttonview~SplitButtonView#actionView} to access its main region, e.g. `dropdownView.buttonView.actionView.set( /* ... */ )`.
 </info-box>
 
 To control the label of the dropdown, first make it visible using the {@link module:ui/button/buttonview~ButtonView#withText} property and then set the text of the {@link module:ui/button/buttonview~ButtonView#label}:
@@ -348,6 +348,7 @@ The dropdown button can display an icon too. First, import the SVG file and then
 ```js
 import iconFile from 'path/to/icon.svg';
 
+// The code that creates a dropdown view.
 // ...
 
 dropdownView.buttonView.set( {
@@ -448,7 +449,7 @@ It is advised that for the best user experience the editing view gets {@link mod
 ```js
 // Execute some action on dropdown#execute event.
 dropdownView.buttonView.on( 'execute', () => {
-	editor.execute( 'command', { value: ... } );
+	editor.execute( 'command', { value: "command-value" } );
 	editor.editing.view.focus();
 } );
 ```
@@ -468,6 +469,7 @@ The {@link module:utils/focustracker~FocusTracker `FocusTracker`} class can obse
 ```js
 import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
 
+// More imports.
 // ...
 
 const focusTracker = new FocusTracker();
@@ -503,6 +505,7 @@ The {@link module:utils/keystrokehandler~KeystrokeHandler `KeystrokeHandler`} li
 ```js
 import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
 
+// More imports.
 // ...
 
 const keystrokeHandler = new KeystrokeHandler();

@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -9,18 +9,22 @@
 
 import View from '../view';
 import ColorTileView from './colortileview';
-import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
 import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
 import addKeyboardHandlingForGrid from '../bindings/addkeyboardhandlingforgrid';
+
+import {
+	FocusTracker,
+	type CollectionAddEvent,
+	type CollectionRemoveEvent,
+	type Locale,
+	type ObservableChangeEvent
+} from '@ckeditor/ckeditor5-utils';
 
 import '../../theme/components/colorgrid/colorgrid.css';
 
 import type { ButtonExecuteEvent } from '../button/button';
 import type DropdownPanelFocusable from '../dropdown/dropdownpanelfocusable';
 import type ViewCollection from '../viewcollection';
-import type { Locale } from '@ckeditor/ckeditor5-utils';
-import type { CollectionAddEvent, CollectionRemoveEvent } from '@ckeditor/ckeditor5-utils/src/collection';
-import type { ObservableChangeEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
 
 /**
  * A grid of {@link module:ui/colorgrid/colortile~ColorTileView color tiles}.
@@ -187,7 +191,8 @@ export default class ColorGridView extends View implements DropdownPanelFocusabl
 			keystrokeHandler: this.keystrokes,
 			focusTracker: this.focusTracker,
 			gridItems: this.items,
-			numberOfColumns: this.columns
+			numberOfColumns: this.columns,
+			uiLanguageDirection: this.locale && this.locale.uiLanguageDirection
 		} );
 	}
 

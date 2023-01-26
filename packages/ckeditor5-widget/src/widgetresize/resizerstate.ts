@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,9 +7,7 @@
  * @module widget/widgetresize/resizerstate
  */
 
-import Rect from '@ckeditor/ckeditor5-utils/src/dom/rect';
-
-import { Observable } from '@ckeditor/ckeditor5-utils/src/observablemixin';
+import { ObservableMixin, Rect } from '@ckeditor/ckeditor5-utils';
 
 import type { ResizerOptions } from '../widgetresize';
 
@@ -17,7 +15,7 @@ import type { ResizerOptions } from '../widgetresize';
  * Stores the internal state of a single resizable object.
  *
  */
-export default class ResizeState extends Observable {
+export default class ResizeState extends ObservableMixin() {
 	declare public activeHandlePosition: string | null;
 	declare public proposedWidthPercents: number | null;
 	declare public proposedWidth: number | null;

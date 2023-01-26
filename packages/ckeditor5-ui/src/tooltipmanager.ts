@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -9,17 +9,23 @@
 
 import View from './view';
 import BalloonPanelView, { generatePositions } from './panel/balloon/balloonpanelview';
+import type { EditorUIUpdateEvent } from './editorui/editorui';
 
-import { Emitter as DomEmitter } from '@ckeditor/ckeditor5-utils/src/dom/emittermixin';
-import { global, isVisible, first, ResizeObserver } from '@ckeditor/ckeditor5-utils';
+import {
+	DomEmitterMixin,
+	ResizeObserver,
+	first,
+	global,
+	isVisible,
+	type EventInfo,
+	type PositioningFunction
+} from '@ckeditor/ckeditor5-utils';
+
+import type { Editor } from '@ckeditor/ckeditor5-core';
+
 import { isElement, debounce, type DebouncedFunc } from 'lodash-es';
 
 import '../theme/components/tooltip/tooltip.css';
-
-import type Editor from '@ckeditor/ckeditor5-core/src/editor/editor';
-import type { EditorUIUpdateEvent } from '@ckeditor/ckeditor5-core/src/editor/editorui';
-import type EventInfo from '@ckeditor/ckeditor5-utils/src/eventinfo';
-import type { PositioningFunction } from '@ckeditor/ckeditor5-utils/src/dom/position';
 
 const BALLOON_CLASS = 'ck-tooltip';
 
@@ -70,7 +76,7 @@ const BALLOON_CLASS = 'ck-tooltip';
  *
  * @mixes module:utils/domemittermixin~DomEmitterMixin
  */
-export default class TooltipManager extends DomEmitter {
+export default class TooltipManager extends DomEmitterMixin() {
 	public readonly tooltipTextView!: View & { text: string };
 	public readonly balloonPanelView!: BalloonPanelView;
 

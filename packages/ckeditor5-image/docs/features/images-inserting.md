@@ -19,8 +19,8 @@ import ImageInsert from '@ckeditor/ckeditor5-image/src/imageinsert';
 
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ ... , ImageInsert ],
-		toolbar: [ ... , 'insertImage' ]
+		plugins: [ /* ... */ , ImageInsert ],
+		toolbar: [ /* ... */ , 'insertImage' ]
 	} )
 ```
 
@@ -41,7 +41,7 @@ import AutoImage from '@ckeditor/ckeditor5-image/src/autoimage';
 
 ClassicEditor
 	.create( document.querySelector( '#editor' ), {
-		plugins: [ ... , AutoImage ]
+		plugins: [ /* ... */ , AutoImage ]
 	} )
 ```
 
@@ -74,4 +74,4 @@ The {@link module:image/imageupload~ImageUpload} plugin registers:
 
 ## Contribute
 
-The source code of the feature is available on GitHub in https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-image.
+The source code of the feature is available on GitHub in [https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-image](https://github.com/ckeditor/ckeditor5/tree/master/packages/ckeditor5-image).

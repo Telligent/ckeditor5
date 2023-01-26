@@ -4,7 +4,7 @@ order: 20
 modified_at: 2022-11-15
 ---
 
-# Data from external source
+# Data from an external source
 
 In this tutorial, you will learn how to implement a widget that fetches data from an external source and updates all own instances in a set interval of time.
 
@@ -16,7 +16,7 @@ You will build an "external data fetch" feature that allows users to insert a pr
 
 ## Before you start ⚠️
 
-This guide assumes that you are familiar with the widgets concept introduced in the {@link framework/guides/tutorials/implementing-a-block-widget Implementing a block widget} and {@link framework/guides/tutorials/implementing-an-inline-widget implementing an inline widget} tutorials. The tutorial also references various concepts concerning the {@link framework/guides/architecture/intro CKEditor 5 architecture}.
+This guide assumes that you are familiar with the widgets concept introduced in the {@link framework/guides/tutorials/implementing-a-block-widget Implementing a block widget} and {@link framework/guides/tutorials/implementing-an-inline-widget Implementing an inline widget} tutorials. The tutorial also references various concepts concerning the {@link framework/guides/architecture/intro CKEditor 5 architecture}.
 
 ## Bootstrapping the project
 
@@ -181,13 +181,13 @@ Before building the project you still need to define the `ExternalDataWidget` pl
 │   └── theme
 │       └── externaldatawidget.css
 │
-│   ... the rest of the plugin files go here as well.
+│   ... the rest of the plugin files goes here as well.
 │
 └── webpack.config.js
 ```
 
 
-You can see that the external data widget feature has an established plugin structure: the master (glue) plugin (`external-data-widget/externaldatawidget.js`), the "editing" (`external-data-widget/externaldatawidgetediting.js`) and the "UI" (`external-data-widget/externaldatawidgetui.js`) parts.
+You can see that the external data widget feature follows an established plugin structure: the master (glue) plugin (`external-data-widget/externaldatawidget.js`), the "editing" (`external-data-widget/externaldatawidgetediting.js`), and the "UI" (`external-data-widget/externaldatawidgetui.js`) parts.
 
 The master (glue) plugin:
 
@@ -242,7 +242,7 @@ After the build is completed, open `index.html` in your browser to check if all 
 
 ## The model and the view layers
 
-The external data widget feature will be {@link module:engine/model/schema~SchemaItemDefinition defined as an inline} (text-like) element so it will be inserted into other editor blocks that allow text e.g. `<paragraph>`. The external data widget will have a `data-resource-url` attribute. This means that the model representation of the external data widget will look like this:
+The external data widget feature will be {@link module:engine/model/schema~SchemaItemDefinition defined as an inline} (text-like) element so it will be inserted into other editor blocks that allow text e.g. `<paragraph>`. The external data widget will also have a `data-resource-url` attribute. This means that the model representation of the external data widget will look like this:
 
 ```
 <paragraph>
@@ -251,7 +251,7 @@ The external data widget feature will be {@link module:engine/model/schema~Schem
 ```
 
 <info-box>
-	Syntax presented above is used by our debugging tools, like {@link framework/guides/development-tools#ckeditor-5-inspector CKEditor 5 inspector}, which is particularly helpful when developing new rich-text editor features.
+	The syntax presented above is used by our debugging tools, such as {@link framework/guides/development-tools#ckeditor-5-inspector CKEditor 5 inspector}, which is particularly helpful when developing new rich-text editor features.
 </info-box>
 
 ### Defining the schema
@@ -289,7 +289,7 @@ export default class ExternalDataWidgetEditing extends Plugin {
 }
 ```
 
-The schema is defined, now you can define the model-view converters.
+Once the schema is defined, you can now define the model-view converters.
 
 ### Defining converters
 
@@ -300,7 +300,7 @@ The HTML structure (data output) of the converter will be a `<span>` with a `dat
 ```
 
 * {@link framework/guides/deep-dive/conversion/upcast **Upcast conversion**}. This view-to-model converter will look for `<span>`s with the `data-resource-url` attribute and will create model `<externalElement>` elements with the same `data-resource-url` attribute set accordingly.
-* {@link framework/guides/deep-dive/conversion/downcast **Downcast conversion**}. The model-to-view conversion will be slightly different for "editing" and "data" pipelines as the "editing downcast" pipeline will use widget utilities to enable widget-specific behavior in the editing view. In both pipelines, the element will be rendered using the same structure.
+* {@link framework/guides/deep-dive/conversion/downcast **Downcast conversion**}. The model-to-view conversion will be slightly different for the "editing" and "data" pipelines as the "editing downcast" pipeline will use widget utilities to enable widget-specific behavior in the editing view. In both pipelines, the element will be rendered using the same structure.
 
 ```js
 // external-data-widget/externaldatawidgetediting.js
@@ -326,6 +326,7 @@ export default class ExternalDataWidgetEditing extends Plugin {
 	}
 
 	_defineSchema() {                                                          // ADDED
+		// Previously registered schema.
 		// ...
 	}
 
@@ -376,7 +377,7 @@ export default class ExternalDataWidgetEditing extends Plugin {
 
 ### Feature styles
 
-As you might have noticed, the editing part imports the `./theme/externaldatawidget.css` CSS file which describes how the widget will look like and how it will be animated when new value arrives:
+As you might have noticed, the editing part imports the `./theme/externaldatawidget.css` CSS file which describes how the widget will look like and how it will be animated when a new value arrives:
 
 ```css
 /* external-data-widget/theme/externaldatawidget.css */
@@ -400,7 +401,7 @@ As you might have noticed, the editing part imports the `./theme/externaldatawid
 }
 ```
 
-### Command
+### The command
 
 The {@link framework/guides/architecture/core-editor-architecture#commands command} for the external data widget feature will insert an `<externalElement>` element (if allowed by the schema) at the selection and set the selection on the inserted widget.
 
@@ -445,7 +446,7 @@ class ExternalDataWidgetCommand extends Command {
 }
 ```
 
-Import the created command and add it to the editor commands:
+Import the newly created command and add it to the editor commands:
 
 ```js
 // external-data-widget/externaldatawidgetediting.js
@@ -475,10 +476,12 @@ export default class ExternalDataWidgetEditing extends Plugin {
 	}
 
 	_defineSchema() {
+		// Previously registered schema.
 		// ...
 	}
 
 	_defineConverters() {
+		// Previously defined converters.
 		// ...
 	}
 }
@@ -486,9 +489,9 @@ export default class ExternalDataWidgetEditing extends Plugin {
 
 ## Creating the UI
 
-The UI part provides a {@link module:ui/button/buttonview~ButtonView} that user can click to insert the external data widget into the editor.
+The UI part provides a {@link module:ui/button/buttonview~ButtonView} that users can click to insert the external data widget into the editor.
 
-Register and configure the toolbar button as show below. The icon of the button can be found among official [Bitcoin promotional graphics](https://en.bitcoin.it/wiki/Promotional_graphics). Put the SVG file in the `./theme` directory and import it next to the UI plugin so it can be used by the button.
+Register and configure the toolbar button as shown below. The icon of the button can be found among official [Bitcoin promotional graphics](https://en.bitcoin.it/wiki/Promotional_graphics). Put the SVG file in the `./theme` directory and import it next to the UI plugin so it can be used by the button.
 
 ```js
 // external-data-widget/externaldatawidgetui.js
@@ -572,7 +575,7 @@ In this tutorial we will use an external API that provides a current Bitcoin rat
 'https://api2.binance.com/api/v3/ticker/24hr?symbol=BTCUSDT'
 ```
 
-The data will be fetched every 10 seconds. Eeach instance of the widget will be updated at the same time. To achieve that, we need to modify the `ExternalDataWidgetEditing` class.
+The data will be fetched every 10 seconds. Each instance of the widget will be updated at the same time. To achieve that, we need to modify the `ExternalDataWidgetEditing` class.
 
 ```js
 
@@ -638,10 +641,12 @@ class ExternalDataWidgetEditing extends Plugin {
 	}
 
 	_defineSchema() {
+		// Previously registered schema.
 		// ...
 	}
 
 	_defineConverters() {
+		// Previously defined upcast and data downcast converters.
 		// ...
 
 		editor.conversion.for( 'editingDowncast' ).elementToElement( {

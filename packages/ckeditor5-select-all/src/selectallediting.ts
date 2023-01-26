@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,10 +7,10 @@
  * @module select-all/selectallediting
  */
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
-import { getCode, parseKeystroke } from '@ckeditor/ckeditor5-utils/src/keyboard';
+import { Plugin } from '@ckeditor/ckeditor5-core';
+import { getCode, parseKeystroke } from '@ckeditor/ckeditor5-utils';
 import SelectAllCommand from './selectallcommand';
-import type { ViewDocumentKeyEvent } from '@ckeditor/ckeditor5-engine/src/view/observer/keyobserver';
+import type { ViewDocumentKeyEvent } from '@ckeditor/ckeditor5-engine';
 
 const SELECT_ALL_KEYSTROKE = parseKeystroke( 'Ctrl+A' );
 

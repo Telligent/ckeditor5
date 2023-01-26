@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,10 +7,12 @@
  * @module ui/focuscycler
  */
 
-import isVisible from '@ckeditor/ckeditor5-utils/src/dom/isvisible';
-
-import type { FocusTracker, KeystrokeHandler } from '@ckeditor/ckeditor5-utils';
-import type { ArrayOrItem } from '@ckeditor/ckeditor5-utils/src/toarray';
+import {
+	isVisible,
+	type ArrayOrItem,
+	type FocusTracker,
+	type KeystrokeHandler
+} from '@ckeditor/ckeditor5-utils';
 
 import type View from './view';
 import type ViewCollection from './viewcollection';
@@ -59,7 +61,7 @@ import type ViewCollection from './viewcollection';
  *			}
  *		} );
  *
- * Check out the {@glink framework/guides/deep-dive/ui/focus-tracking "Deep dive into focus tracking" guide} to learn more.
+ * Check out the {@glink framework/guides/deep-dive/ui/focus-tracking "Deep dive into focus tracking"} guide to learn more.
  */
 export default class FocusCycler {
 	public readonly focusables: ViewCollection;

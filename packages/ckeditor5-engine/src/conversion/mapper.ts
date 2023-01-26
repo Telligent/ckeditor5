@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -14,8 +14,7 @@ import ViewPosition from '../view/position';
 import ViewRange from '../view/range';
 import ViewText from '../view/text';
 
-import { Emitter } from '@ckeditor/ckeditor5-utils/src/emittermixin';
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
+import { CKEditorError, EmitterMixin } from '@ckeditor/ckeditor5-utils';
 
 import type ViewDocumentFragment from '../view/documentfragment';
 import type ViewElement from '../view/element';
@@ -43,7 +42,7 @@ import type ViewNode from '../view/node';
  * stop the event.
  * @mixes module:utils/emittermixin~EmitterMixin
  */
-export default class Mapper extends Emitter {
+export default class Mapper extends EmitterMixin() {
 	private _modelToViewMapping: WeakMap<ModelElement | ModelDocumentFragment, ViewElement | ViewDocumentFragment>;
 	private _viewToModelMapping: WeakMap<ViewElement | ViewDocumentFragment, ModelElement | ModelDocumentFragment>;
 	private _viewToModelLengthCallbacks: Map<string, ( element: ViewElement ) => number>;
@@ -562,7 +561,7 @@ export default class Mapper extends Emitter {
 	 * @param {module:engine/view/element~Element} viewNode View node.
 	 * @returns {Number} Length of the node in the tree model.
 	 */
-	public getModelLength( viewNode: ViewNode ): number {
+	public getModelLength( viewNode: ViewNode | ViewDocumentFragment ): number {
 		if ( this._viewToModelLengthCallbacks.get( ( viewNode as any ).name ) ) {
 			const callback = this._viewToModelLengthCallbacks.get( ( viewNode as any ).name )!;
 

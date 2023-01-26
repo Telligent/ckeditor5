@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,13 +7,15 @@
  * @module undo/basecommand
  */
 
-import Command from '@ckeditor/ckeditor5-core/src/command';
-import { transformSets } from '@ckeditor/ckeditor5-engine/src/model/operation/transform';
-import type { Editor } from '@ckeditor/ckeditor5-core';
-import type { DataControllerSetEvent } from '@ckeditor/ckeditor5-engine/src/controller/datacontroller';
-import type { Range } from '@ckeditor/ckeditor5-engine';
-import type Batch from '@ckeditor/ckeditor5-engine/src/model/batch';
-import type Operation from '@ckeditor/ckeditor5-engine/src/model/operation/operation';
+import { Command, type Editor } from '@ckeditor/ckeditor5-core';
+
+import {
+	transformSets,
+	type Batch,
+	type Operation,
+	type DataControllerSetEvent,
+	type Range
+} from '@ckeditor/ckeditor5-engine';
 
 /**
  * Base class for the undo feature commands: {@link module:undo/undocommand~UndoCommand} and {@link module:undo/redocommand~RedoCommand}.

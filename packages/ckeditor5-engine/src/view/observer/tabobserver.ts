@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -13,7 +13,7 @@ import BubblingEventInfo from './bubblingeventinfo';
 import type { ViewDocumentKeyEvent } from './keyobserver';
 import type { BubblingEvent } from './bubblingemittermixin';
 
-import { keyCodes } from '@ckeditor/ckeditor5-utils/src/keyboard';
+import { keyCodes } from '@ckeditor/ckeditor5-utils';
 
 /**
  * Tab observer introduces the {@link module:engine/view/document~Document#event:tab `Document#tab`} event.

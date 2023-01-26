@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -8,12 +8,13 @@
  */
 
 import View from '../view';
-import uid from '@ckeditor/ckeditor5-utils/src/uid';
 import LabelView from '../label/labelview';
-import '../../theme/components/labeledinput/labeledinput.css';
 
 import type { default as InputView, InputViewInputEvent } from '../input/inputview';
-import type { Locale } from '@ckeditor/ckeditor5-utils';
+
+import { uid, type Locale } from '@ckeditor/ckeditor5-utils';
+
+import '../../theme/components/labeledinput/labeledinput.css';
 
 /**
  * The labeled input view class.

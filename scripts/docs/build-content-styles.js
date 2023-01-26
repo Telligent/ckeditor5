@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -9,7 +9,7 @@ const path = require( 'path' );
 const mkdirp = require( 'mkdirp' );
 const webpack = require( 'webpack' );
 const { styles } = require( '@ckeditor/ckeditor5-dev-utils' );
-const { getLastFromChangelog } = require( '@ckeditor/ckeditor5-dev-env/lib/release-tools/utils/versions' );
+const { getLastFromChangelog } = require( '@ckeditor/ckeditor5-dev-release-tools' );
 const { writeFile, getCkeditor5Plugins, normalizePath } = require( './utils' );
 const postCssContentStylesPlugin = require( './list-content-styles-plugin' );
 

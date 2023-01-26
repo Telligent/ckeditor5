@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -8,33 +8,42 @@
  */
 
 import View from '../view';
-import FocusTracker from '@ckeditor/ckeditor5-utils/src/focustracker';
 import FocusCycler from '../focuscycler';
-import KeystrokeHandler from '@ckeditor/ckeditor5-utils/src/keystrokehandler';
 import ToolbarSeparatorView from './toolbarseparatorview';
 import ToolbarLineBreakView from './toolbarlinebreakview';
-import ResizeObserver from '@ckeditor/ckeditor5-utils/src/dom/resizeobserver';
 import preventDefault from '../bindings/preventdefault';
-import Rect from '@ckeditor/ckeditor5-utils/src/dom/rect';
-import isVisible from '@ckeditor/ckeditor5-utils/src/dom/isvisible';
-import global from '@ckeditor/ckeditor5-utils/src/dom/global';
 import { createDropdown, addToolbarToDropdown } from '../dropdown/utils';
-import { logWarning } from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
 import normalizeToolbarConfig from './normalizetoolbarconfig';
-import { isObject } from 'lodash-es';
-
-import '../../theme/components/toolbar/toolbar.css';
 
 import type ComponentFactory from '../componentfactory';
 import type ViewCollection from '../viewcollection';
 import type DropdownView from '../dropdown/dropdownview';
 import type DropdownPanelFocusable from '../dropdown/dropdownpanelfocusable';
-import type { Locale } from '@ckeditor/ckeditor5-utils';
-import type { CollectionAddEvent, CollectionChangeEvent, CollectionRemoveEvent } from '@ckeditor/ckeditor5-utils/src/collection';
-import type { ObservableChangeEvent } from '@ckeditor/ckeditor5-utils/src/observablemixin';
-import type { ToolbarConfig, ToolbarConfigItem } from '@ckeditor/ckeditor5-core/src/editor/editorconfig';
 
-import { icons } from '@ckeditor/ckeditor5-core';
+import {
+	FocusTracker,
+	KeystrokeHandler,
+	Rect,
+	ResizeObserver,
+	global,
+	isVisible,
+	logWarning,
+	type CollectionAddEvent,
+	type CollectionChangeEvent,
+	type CollectionRemoveEvent,
+	type Locale,
+	type ObservableChangeEvent
+} from '@ckeditor/ckeditor5-utils';
+
+import {
+	icons,
+	type ToolbarConfig,
+	type ToolbarConfigItem
+} from '@ckeditor/ckeditor5-core';
+
+import { isObject } from 'lodash-es';
+
+import '../../theme/components/toolbar/toolbar.css';
 
 const { threeVerticalDots } = icons;
 
@@ -335,6 +344,22 @@ export default class ToolbarView extends View implements DropdownPanelFocusable 
 		factory: ComponentFactory,
 		removeItems?: Array<string>
 	): void {
+		this.items.addMany( this._buildItemsFromConfig( itemsOrConfig, factory, removeItems ) );
+	}
+
+	/**
+	 * A utility that expands the plain toolbar configuration into a list of view items using a given component factory.
+	 *
+	 * @param {Array.<String>|Object} itemsOrConfig The toolbar items or the entire toolbar configuration object.
+	 * @param {module:ui/componentfactory~ComponentFactory} factory A factory producing toolbar items.
+	 * @param {Array.<String>} [removeItems] An array of items names to be removed from the configuration. When present, applies
+	 * to this toolbar and all nested ones as well.
+	 */
+	private _buildItemsFromConfig(
+		itemsOrConfig: ToolbarConfig | undefined,
+		factory: ComponentFactory,
+		removeItems?: Array<string>
+	): Array<View> {
 		const config = normalizeToolbarConfig( itemsOrConfig );
 		const normalizedRemoveItems = removeItems || config.removeItems;
 		const itemsToAdd = this._cleanItemsConfiguration( config.items, factory, normalizedRemoveItems )
@@ -351,7 +376,7 @@ export default class ToolbarView extends View implements DropdownPanelFocusable 
 			} )
 			.filter( ( item ): item is View => !!item );
 
-		this.items.addMany( itemsToAdd );
+		return itemsToAdd;
 	}
 
 	/**
@@ -548,9 +573,9 @@ export default class ToolbarView extends View implements DropdownPanelFocusable 
 			dropdownView.buttonView.withText = true;
 		}
 
-		addToolbarToDropdown( dropdownView, [] );
-
-		dropdownView.toolbarView!.fillFromConfig( items, componentFactory, removeItems );
+		addToolbarToDropdown( dropdownView, () => (
+			dropdownView.toolbarView!._buildItemsFromConfig( items, componentFactory, removeItems )
+		) );
 
 		return dropdownView;
 	}
@@ -830,12 +855,10 @@ class DynamicGrouping implements ToolbarBehavior {
 		view.itemsView.children.bindTo( this.ungroupedItems ).using( item => item );
 
 		// Make sure all #items visible in the main space of the toolbar are "focuscycleable".
-		this.ungroupedItems.on<CollectionAddEvent>( 'add', this._updateFocusCycleableItems.bind( this ) );
-		this.ungroupedItems.on<CollectionRemoveEvent>( 'remove', this._updateFocusCycleableItems.bind( this ) );
+		this.ungroupedItems.on<CollectionChangeEvent>( 'change', this._updateFocusCycleableItems.bind( this ) );
 
 		// Make sure the #groupedItemsDropdown is also included in cycling when it appears.
-		view.children.on<CollectionAddEvent>( 'add', this._updateFocusCycleableItems.bind( this ) );
-		view.children.on<CollectionRemoveEvent>( 'remove', this._updateFocusCycleableItems.bind( this ) );
+		view.children.on<CollectionChangeEvent>( 'change', this._updateFocusCycleableItems.bind( this ) );
 
 		// ToolbarView#items is dynamic. When an item is added or removed, it should be automatically
 		// represented in either grouped or ungrouped items at the right index.
@@ -1104,7 +1127,7 @@ class DynamicGrouping implements ToolbarBehavior {
 		// (https://github.com/ckeditor/ckeditor5/issues/5608)
 		dropdown.panelPosition = locale.uiLanguageDirection === 'ltr' ? 'sw' : 'se';
 
-		addToolbarToDropdown( dropdown, [] );
+		addToolbarToDropdown( dropdown, this.groupedItems );
 
 		dropdown.buttonView.set( {
 			label: t( 'Show more items' ),
@@ -1112,9 +1135,6 @@ class DynamicGrouping implements ToolbarBehavior {
 			tooltipPosition: locale.uiLanguageDirection === 'rtl' ? 'se' : 'sw',
 			icon: threeVerticalDots
 		} );
-
-		// 1:1 pass–through binding.
-		dropdown.toolbarView!.items.bindTo( this.groupedItems ).using( item => item );
 
 		return dropdown;
 	}

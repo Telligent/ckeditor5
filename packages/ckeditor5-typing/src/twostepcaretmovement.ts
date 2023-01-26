@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -7,12 +7,17 @@
  * @module typing/twostepcaretmovement
  */
 
-import Plugin from '@ckeditor/ckeditor5-core/src/plugin';
+import { Plugin, type Editor } from '@ckeditor/ckeditor5-core';
 
-import { keyCodes } from '@ckeditor/ckeditor5-utils/src/keyboard';
-import type { Editor } from '@ckeditor/ckeditor5-core';
-import type { ViewDocumentArrowKeyEvent } from '@ckeditor/ckeditor5-engine/src/view/observer/arrowkeysobserver';
-import type { DocumentSelection, DomEventData, Model, Position } from '@ckeditor/ckeditor5-engine';
+import { keyCodes } from '@ckeditor/ckeditor5-utils';
+
+import type {
+	DocumentSelection,
+	DomEventData,
+	Model,
+	Position,
+	ViewDocumentArrowKeyEvent
+} from '@ckeditor/ckeditor5-engine';
 
 /**
  * This plugin enables the two-step caret (phantom) movement behavior for

@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -14,8 +14,9 @@ import Position from './position';
 import type Item from './item';
 import type DocumentFragment from './documentfragment';
 import type Range from './range';
-import CKEditorError from '@ckeditor/ckeditor5-utils/src/ckeditorerror';
 import type Node from './node';
+
+import { CKEditorError } from '@ckeditor/ckeditor5-utils';
 
 /**
  * Position iterator class. It allows to iterate forward and backward over the document.

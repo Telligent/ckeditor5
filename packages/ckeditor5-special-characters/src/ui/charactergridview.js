@@ -1,5 +1,5 @@
 /**
- * @license Copyright (c) 2003-2022, CKSource Holding sp. z o.o. All rights reserved.
+ * @license Copyright (c) 2003-2023, CKSource Holding sp. z o.o. All rights reserved.
  * For licensing, see LICENSE.md or https://ckeditor.com/legal/ckeditor-oss-license
  */
 
@@ -82,7 +82,8 @@ export default class CharacterGridView extends View {
 				.getComputedStyle( this.element.firstChild ) // Responsive .ck-character-grid__tiles
 				.getPropertyValue( 'grid-template-columns' )
 				.split( ' ' )
-				.length
+				.length,
+			uiLanguageDirection: this.locale && this.locale.uiLanguageDirection
 		} );
 
 		/**
@@ -99,6 +100,15 @@ export default class CharacterGridView extends View {
 		 * (similar to the native `mouseover` DOM event).
 		 *
 		 * @event tileHover
+		 * @param {Object} data Additional information about the event.
+		 * @param {String} data.name The name of the tile that caused the event (e.g. "greek small letter epsilon").
+		 * @param {String} data.character A human-readable character displayed as the label (e.g. "ε").
+		 */
+
+		/**
+		 * Fired when {@link #tiles grid tile} is focused (e.g. by navigating with arrow keys).
+		 *
+		 * @event tileFocus
 		 * @param {Object} data Additional information about the event.
 		 * @param {String} data.name The name of the tile that caused the event (e.g. "greek small letter epsilon").
 		 * @param {String} data.character A human-readable character displayed as the label (e.g. "ε").
@@ -128,12 +138,17 @@ export default class CharacterGridView extends View {
 				title: name
 			},
 			on: {
-				mouseover: tile.bindTemplate.to( 'mouseover' )
+				mouseover: tile.bindTemplate.to( 'mouseover' ),
+				focus: tile.bindTemplate.to( 'focus' )
 			}
 		} );
 
 		tile.on( 'mouseover', () => {
 			this.fire( 'tileHover', { name, character } );
+		} );
+
+		tile.on( 'focus', () => {
+			this.fire( 'tileFocus', { name, character } );
 		} );
 
 		tile.on( 'execute', () => {
