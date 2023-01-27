@@ -53,6 +53,13 @@ import TableProperties from '@ckeditor/ckeditor5-table/src/tableproperties';
 import Underline from '@ckeditor/ckeditor5-basic-styles/src/underline';
 
 import Submittable from '@telligent/ckeditor5-evolution/src/submittable';
+import TextPart from '@telligent/ckeditor5-evolution/src/textpart';
+import ToolbarMenu from '@telligent/ckeditor5-evolution/src/toolbarmenu';
+import TypeAhead from '@telligent/ckeditor5-evolution/src/typeahead';
+import Hashtag from '@telligent/ckeditor5-evolution/src/hashtag';
+import Mention from '@telligent/ckeditor5-evolution/src/mention';
+import Emoticon from '@telligent/ckeditor5-evolution/src/emoticon';
+import EvolutionAutoLink from '@telligent/ckeditor5-evolution/src/autolink';
 
 export default class ClassicEditor extends ClassicEditorBase {}
 
@@ -103,8 +110,15 @@ ClassicEditor.builtinPlugins = [
 	TableProperties,
 	TableToolbar,
 	Underline,
-	
-	Submittable
+
+	Submittable,
+	ToolbarMenu,
+	TextPart,
+	TypeAhead,
+	Hashtag,
+	Mention,
+	Emoticon,
+	EvolutionAutoLink
 ];
 
 // Editor configuration.

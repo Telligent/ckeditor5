@@ -27,26 +27,27 @@
     "CHANGELOG.md"
   ],
   "dependencies": {
-    "@ckeditor/ckeditor5-adapter-ckfinder": "^36.0.0",
-    "@ckeditor/ckeditor5-autoformat": "^36.0.0",
+    "@ckeditor/ckeditor5-alignment": "^36.0.0",
     "@ckeditor/ckeditor5-basic-styles": "^36.0.0",
+    "@ckeditor/ckeditor5-clipboard": "^36.0.0",
     "@ckeditor/ckeditor5-block-quote": "^36.0.0",
-    "@ckeditor/ckeditor5-ckbox": "^36.0.0",
-    "@ckeditor/ckeditor5-ckfinder": "^36.0.0",
-    "@ckeditor/ckeditor5-cloud-services": "^36.0.0",
-    "@ckeditor/ckeditor5-easy-image": "^36.0.0",
     "@ckeditor/ckeditor5-editor-classic": "^36.0.0",
     "@ckeditor/ckeditor5-essentials": "^36.0.0",
+    "@ckeditor/ckeditor5-find-and-replace": "^36.0.0",
+    "@ckeditor/ckeditor5-font": "^36.0.0",
     "@ckeditor/ckeditor5-heading": "^36.0.0",
+    "@ckeditor/ckeditor5-horizontal-line": "^36.0.0",
     "@ckeditor/ckeditor5-image": "^36.0.0",
     "@ckeditor/ckeditor5-indent": "^36.0.0",
     "@ckeditor/ckeditor5-link": "^36.0.0",
     "@ckeditor/ckeditor5-list": "^36.0.0",
-    "@ckeditor/ckeditor5-media-embed": "^36.0.0",
     "@ckeditor/ckeditor5-paragraph": "^36.0.0",
     "@ckeditor/ckeditor5-paste-from-office": "^36.0.0",
+    "@ckeditor/ckeditor5-remove-format": "^36.0.0",
+    "@ckeditor/ckeditor5-select-all": "^36.0.0",
+    "@ckeditor/ckeditor5-source-editing": "^36.0.0",
+    "@ckeditor/ckeditor5-special-characters": "^36.0.0",
     "@ckeditor/ckeditor5-table": "^36.0.0",
-    "@ckeditor/ckeditor5-typing": "^36.0.0"
     "@telligent/ckeditor5-evolution": "github:Telligent/ckeditor5-evolution"
   },
   "devDependencies": {
@@ -56,14 +57,12 @@
     "@ckeditor/ckeditor5-theme-lark": "^36.0.0",
     "css-loader": "^5.2.7",
     "postcss-loader": "^4.3.0",
-    "postcss-selector-parser": "^6.0.10",
     "raw-loader": "^4.0.1",
     "style-loader": "^2.0.0",
     "terser-webpack-plugin": "^4.2.3",
-    "ts-loader": "^9.4.2",
-    "typescript": "^4.9.4",
-    "webpack": "^5.75.0",
-    "webpack-cli": "^4.10.0"
+    "ts-loader": "^9.3.0",
+    "webpack": "^5.58.1",
+    "webpack-cli": "^4.9.0"
   },
   "engines": {
     "node": ">=14.0.0",
@@ -80,6 +79,7 @@
   },
   "scripts": {
     "build": "webpack --mode production",
+    "analyzer": "webpack bundle analyzer",
     "preversion": "npm run build"
   }
 }
